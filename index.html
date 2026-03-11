@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>fasxy profile</title>
+<style>
+  *{
+margin:0;
+padding:0;
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent;
+scroll-behavior:smooth;
+}
+
+body{
+font-family:Arial,Helvetica,sans-serif;
+background:#050505;
+color:white;
+overflow-x:hidden;
+}
+
+#particles{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:-2;
+}
+
+#navParticles{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:70px;
+z-index:0;
+pointer-events:none;
+}
+
+nav{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:70px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 40px;
+background:rgba(10,10,10,0.75);
+backdrop-filter:blur(14px);
+border-bottom:1px solid rgba(0,144,255,0.35);
+z-index:1000;
+}
+
+.logo{
+font-size:20px;
+font-weight:700;
+letter-spacing:1px;
+text-shadow:0 0 12px #0090ff;
+}
+
+.hamburger{
+width:28px;
+height:22px;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+cursor:pointer;
+z-index:1100;
+}
+
+.hamburger span{
+width:100%;
+height:3px;
+background:white;
+border-radius:2px;
+transition:.3s;
+}
+
+.menu{
+position:fixed;
+top:70px;
+right:-260px;
+width:240px;
+height:calc(100vh - 70px);
+background:rgba(10,10,10,0.95);
+backdrop-filter:blur(12px);
+display:flex;
+flex-direction:column;
+padding:30px;
+gap:22px;
+transition:.4s;
+border-left:1px solid rgba(0,144,255,0.35);
+z-index:1000;
+}
+
+.menu.active{
+right:0;
+}
+
+.menu a{
+position:relative;
+color:white;
+text-decoration:none;
+font-size:16px;
+opacity:.85;
+cursor:pointer;
+transition:0.3s;
+}
+
+.menu a:hover{
+opacity:1;
+text-shadow:0 0 10px #0090ff;
+}
+
+.menu a::after{
+content:"";
+position:absolute;
+left:0;
+bottom:-4px;
+width:0%;
+height:2px;
+background:#0090ff;
+transition:0.3s;
+}
+
+.menu a:hover::after{
+width:100%;
+}
+
+.page{
+position:absolute;
+top:70px;
+left:0;
+width:100%;
+min-height:calc(100vh - 70px);
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+padding:40px 20px;
+text-align:center;
+opacity:0;
+transform:translateY(40px);
+pointer-events:none;
+transition:opacity .6s ease, transform .6s ease;
+}
+
+.page.active{
+opacity:1;
+transform:translateY(0);
+pointer-events:auto;
+}
+
+.title{
+font-size:44px;
+margin-bottom:15px;
+text-shadow:0 0 20px #0090ff;
+}
+
+.subtitle{
+opacity:0.7;
+margin-bottom:40px;
+}
+
+.social-icons{
+display:flex;
+gap:20px;
+}
+
+.social-icons a{
+width:55px;
+height:55px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:rgba(20,20,20,0.8);
+border-radius:14px;
+border:1px solid rgba(0,144,255,0.35);
+transition:0.3s;
+}
+
+.social-icons a:hover{
+box-shadow:0 0 20px #0090ff;
+transform:translateY(-4px);
+}
+
+.social-icons svg{
+width:26px;
+fill:white;
+}
+
+.section-title{
+font-size:32px;
+margin-bottom:40px;
+text-shadow:0 0 12px #0090ff;
+}
+
+.youtube-card{
+width:420px;
+max-width:100%;
+background:rgba(20,20,20,0.9);
+border-radius:20px;
+padding:20px;
+border:1px solid rgba(0,144,255,0.35);
+box-shadow:0 0 30px rgba(0,144,255,0.25);
+}
+
+.youtube-card iframe{
+width:100%;
+height:235px;
+border-radius:12px;
+border:none;
+}
+
+.tiktok-card{
+width:350px;
+background:rgba(20,20,20,0.9);
+padding:20px;
+border-radius:20px;
+border:1px solid rgba(0,144,255,0.35);
+}
+
+.tiktok-card iframe{
+width:100%;
+height:520px;
+border:none;
+border-radius:12px;
+}
+
+.github-box{
+background:rgba(20,20,20,0.9);
+padding:40px;
+border-radius:20px;
+border:1px solid rgba(0,144,255,0.35);
+width:320px;
+}
+
+.github-avatar{
+width:95px;
+border-radius:50%;
+margin-bottom:15px;
+}
+
+.github-name{
+font-size:22px;
+margin-bottom:10px;
+}
+
+.github-stats{
+opacity:0.8;
+margin-top:10px;
+}
+
+footer{
+text-align:center;
+padding:30px;
+opacity:0.6;
+}
+
+.github-box{
+background:rgba(20,20,20,0.9);
+padding:40px;
+border-radius:20px;
+border:1px solid rgba(0,144,255,0.35);
+width:320px;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap:10px;
+}
+</style>
+
+</head>
+
+<body>
+<canvas id="particles"></canvas>
+<canvas id="navParticles"></canvas>
+<nav>
+
+<div class="logo">fasxy_</div>
+
+<div class="hamburger" id="hamburger">
+<span></span>
+<span></span>
+<span></span>
+</div>
+
+<div class="menu" id="menu">
+<a data-page="home">Home</a>
+<a data-page="youtube">YouTube</a>
+<a data-page="tiktok">TikTok</a>
+<a data-page="github">GitHub</a>
+</div>
+
+</nav>
+
+
+
+<section id="home" class="page active">
+
+<div class="title">
+fasxy_
+</div>
+
+<div class="subtitle">
+Developer • Creators • Open Source
+</div>
+
+<div class="social-icons">
+
+<a href="https://youtube.com" target="_blank">
+<svg viewBox="0 0 24 24"><path d="M23 7s-.2-1.6-.8-2.3c-.8-.9-1.7-.9-2.1-1C16.9 3.5 12 3.5 12 3.5h0s-4.9 0-8.1.2c-.4.1-1.3.1-2.1 1C1.2 5.4 1 7 1 7S.8 8.8.8 10.6v1.7C.8 14.2 1 16 1 16s.2 1.6.8 2.3c.8.9 1.9.9 2.4 1 1.7.2 7.8.2 7.8.2s4.9 0 8.1-.2c.4-.1 1.3-.1 2.1-1 .6-.7.8-2.3.8-2.3s.2-1.8.2-3.7v-1.7C23.2 8.8 23 7 23 7zM9.8 14.6V8.7l5.6 3-5.6 2.9z"/></svg>
+</a>
+
+<a href="https://tiktok.com" target="_blank">
+<svg viewBox="0 0 24 24"><path d="M21 8.2c-2-.1-3.6-1-4.7-2.3v7.5c0 3.6-2.9 6.6-6.6 6.6S3.1 17 3.1 13.4s2.9-6.6 6.6-6.6c.4 0 .8 0 1.2.1v3.2c-.4-.1-.8-.2-1.2-.2-1.9 0-3.4 1.5-3.4 3.4S7.8 17 9.7 17s3.4-1.5 3.4-3.4V2h3.2c.3 1.8 1.7 3.2 3.7 3.4v2.8z"/></svg>
+</a>
+
+<a href="https://github.com" target="_blank">
+<svg viewBox="0 0 24 24"><path d="M12 .5C5.7.5.8 5.4.8 11.7c0 5 3.2 9.3 7.6 10.8.6.1.8-.3.8-.6v-2.2c-3.1.7-3.8-1.3-3.8-1.3-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 .1.7 1.9 2.7 1.4.1-.8.4-1.3.7-1.6-2.5-.3-5.2-1.3-5.2-5.6 0-1.2.4-2.2 1.1-3-.1-.3-.5-1.5.1-3.1 0 0 .9-.3 3.1 1.1.9-.2 1.8-.3 2.7-.3s1.8.1 2.7.3c2.2-1.4 3.1-1.1 3.1-1.1.6 1.6.2 2.8.1 3.1.7.8 1.1 1.8 1.1 3 0 4.3-2.7 5.3-5.2 5.6.4.4.8 1.1.8 2.3v3.3c0 .3.2.7.8.6 4.4-1.5 7.6-5.8 7.6-10.8C23.2 5.4 18.3.5 12 .5z"/></svg>
+</a>
+
+</div>
+
+</section>
+
+
+<section id="youtube" class="page">
+
+<div class="section-title">
+Latest YouTube Video
+</div>
+
+<div class="youtube-card">
+<iframe src="https://www.youtube.com/embed?listType=user_uploads&list=YouTube"></iframe>
+</div>
+
+</section>
+
+
+<section id="tiktok" class="page">
+
+<div class="section-title">
+TikTok
+</div>
+
+<div class="tiktok-card">
+<iframe src="https://www.tiktok.com/embed/@tiktok"></iframe>
+</div>
+
+</section>
+
+<section id="github" class="page">
+
+<div class="section-title">
+GitHub Profile
+</div>
+
+<div class="github-box">
+
+<img id="gh-avatar" class="github-avatar">
+
+<div id="gh-name" class="github-name"></div>
+
+<div id="gh-bio"></div>
+
+<div class="github-stats">
+Repos: <span id="gh-repos"></span>
+</div>
+
+<div class="github-stats">
+Followers: <span id="gh-followers"></span>
+</div>
+
+</div>
+
+</section>
+
+<footer>
+© 2026 fasxy_
+</footer>
+<script>
+
+const canvas=document.getElementById("particles")
+const ctx=canvas.getContext("2d")
+
+const navCanvas=document.getElementById("navParticles")
+const navCtx=navCanvas.getContext("2d")
+
+let particles=[]
+let particleCount=0
+
+let navParticles=[]
+let navCount=40
+
+function setCanvasSize(){
+canvas.width=window.innerWidth
+canvas.height=window.innerHeight
+
+navCanvas.width=window.innerWidth
+navCanvas.height=70
+
+particleCount=Math.floor((canvas.width*canvas.height)/12000)
+
+particles=[]
+for(let i=0;i<particleCount;i++){
+particles.push(new Particle())
+}
+
+navParticles=[]
+for(let i=0;i<navCount;i++){
+navParticles.push(new NavParticle())
+}
+}
+
+window.addEventListener("resize",setCanvasSize)
+
+class Particle{
+constructor(){
+this.x=Math.random()*canvas.width
+this.y=Math.random()*canvas.height
+this.size=Math.random()*2+1
+this.speedX=Math.random()*0.4-0.2
+this.speedY=Math.random()*0.4-0.2
+}
+update(){
+this.x+=this.speedX
+this.y+=this.speedY
+
+if(this.x>canvas.width||this.x<0){
+this.speedX*=-1
+}
+
+if(this.y>canvas.height||this.y<0){
+this.speedY*=-1
+}
+}
+draw(){
+ctx.fillStyle="rgba(0,144,255,0.8)"
+ctx.beginPath()
+ctx.arc(this.x,this.y,this.size,0,Math.PI*2)
+ctx.fill()
+}
+}
+
+class NavParticle{
+constructor(){
+this.x=Math.random()*navCanvas.width
+this.y=Math.random()*navCanvas.height
+this.size=Math.random()*1.8+0.5
+this.speedX=Math.random()*0.3-0.15
+this.speedY=Math.random()*0.2-0.1
+}
+update(){
+this.x+=this.speedX
+this.y+=this.speedY
+
+if(this.x>navCanvas.width) this.x=0
+if(this.x<0) this.x=navCanvas.width
+if(this.y>navCanvas.height) this.y=0
+if(this.y<0) this.y=navCanvas.height
+}
+draw(){
+navCtx.fillStyle="rgba(0,144,255,0.7)"
+navCtx.beginPath()
+navCtx.arc(this.x,this.y,this.size,0,Math.PI*2)
+navCtx.fill()
+}
+}
+
+function connect(){
+for(let a=0;a<particles.length;a++){
+for(let b=a;b<particles.length;b++){
+
+let dx=particles[a].x-particles[b].x
+let dy=particles[a].y-particles[b].y
+
+let distance=Math.sqrt(dx*dx+dy*dy)
+
+if(distance<130){
+
+ctx.strokeStyle="rgba(0,144,255,0.15)"
+ctx.lineWidth=1
+
+ctx.beginPath()
+ctx.moveTo(particles[a].x,particles[a].y)
+ctx.lineTo(particles[b].x,particles[b].y)
+ctx.stroke()
+
+}
+}
+}
+}
+
+function connectNav(){
+for(let a=0;a<navParticles.length;a++){
+for(let b=a;b<navParticles.length;b++){
+
+let dx=navParticles[a].x-navParticles[b].x
+let dy=navParticles[a].y-navParticles[b].y
+
+let distance=Math.sqrt(dx*dx+dy*dy)
+
+if(distance<80){
+
+navCtx.strokeStyle="rgba(0,144,255,0.25)"
+navCtx.lineWidth=1
+
+navCtx.beginPath()
+navCtx.moveTo(navParticles[a].x,navParticles[a].y)
+navCtx.lineTo(navParticles[b].x,navParticles[b].y)
+navCtx.stroke()
+
+}
+}
+}
+}
+
+function animate(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height)
+
+for(let i=0;i<particles.length;i++){
+particles[i].update()
+particles[i].draw()
+}
+
+connect()
+
+navCtx.clearRect(0,0,navCanvas.width,navCanvas.height)
+
+for(let i=0;i<navParticles.length;i++){
+navParticles[i].update()
+navParticles[i].draw()
+}
+
+connectNav()
+
+requestAnimationFrame(animate)
+
+}
+
+setCanvasSize()
+animate()
+
+const hamburger=document.getElementById("hamburger")
+const menu=document.getElementById("menu")
+
+hamburger.addEventListener("click",function(){
+menu.classList.toggle("active")
+})
+
+const links=document.querySelectorAll(".menu a")
+const pages=document.querySelectorAll(".page")
+
+links.forEach(link=>{
+link.addEventListener("click",function(){
+
+let page=this.getAttribute("data-page")
+
+pages.forEach(p=>{
+p.classList.remove("active")
+})
+
+document.getElementById(page).classList.add("active")
+
+menu.classList.remove("active")
+
+})
+})
+
+fetch("https://api.github.com/users/fasxy")
+.then(res=>res.json())
+.then(data=>{
+document.getElementById("gh-avatar").src=data.avatar_url
+document.getElementById("gh-name").textContent=data.login
+document.getElementById("gh-bio").textContent=data.bio
+document.getElementById("gh-repos").textContent=data.public_repos
+document.getElementById("gh-followers").textContent=data.followers
+})
+</script>
+
+</body>
+  </html>
