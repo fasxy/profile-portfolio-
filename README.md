@@ -1,2 +1,29 @@
-# profile-portfolio-
-Personal developer portfolio website built with HTML, CSS, and JavaScript. Features an animated particle background, responsive navigation, GitHub profile integration, and social media sections including YouTube and TikTok. Designed with a dark modern interface and smooth user experience for both desktop and mobile.
+fasxy Developer Portfolio
+
+Personal developer portfolio website built to showcase my profile and social platforms.
+
+This project is a simple web portfolio featuring a dark interface with an animated particle background and a responsive navigation menu. The website also includes sections for YouTube, TikTok, and a GitHub profile that loads data directly from the GitHub API.
+
+Features
+
+- Animated particle background using Canvas
+- Responsive navigation menu
+- GitHub profile integration via API
+- YouTube video embed section
+- TikTok embed section
+- Modern dark themed interface
+
+Built With
+
+HTML
+CSS
+JavaScript
+Canvas API
+
+Customization
+
+You can modify the GitHub username inside the JavaScript file if you want to display a different profile.
+
+Author
+
+fasxy
